@@ -19,7 +19,7 @@ def current_time() -> str:
 def setup_env() -> list : 
     '''Setup the environment for the app to run'''
     print(f'This is a repository installer, follow the next steps ...')
-    print('[1] Repositories will clone under "c:/" directory ...')
+    print('[#] Repositories will clone under "c:/" directory ...')
 
     repos_lst = []
     clone = True
@@ -32,7 +32,7 @@ def setup_env() -> list :
             print(f'[-] Creating installation directory "{INSTALLATION_FOLDER_PATH}" ...')
             git.Git(working_dir=os.path.dirname(INSTALLATION_FOLDER_PATH)).clone(REPO_URL)
 
-            MAIN_FILE_PATH = os.path.join(INSTALLATION_FOLDER_PATH,input(f"\nWhat is the name of the main file? ({os.listdir(INSTALLATION_FOLDER_PATH)})"))
+            MAIN_FILE_PATH = os.path.join(INSTALLATION_FOLDER_PATH,input(f"\nWhat is the name of the main file? {os.listdir(INSTALLATION_FOLDER_PATH)}"))
             run_startup = input(f"\nRun it on startup? (y/n)")
             if 'y' in run_startup:
                 # Create startup BAT file
