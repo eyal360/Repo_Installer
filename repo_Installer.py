@@ -58,3 +58,5 @@ if __name__ == '__main__':
     repos_lst = setup_env()
     for repo in repos_lst:
         print(f'[#] "{repo}" Repository installed / Updated successfully!')
+
+    wait = input('\nPress ENTER to exit ...')
