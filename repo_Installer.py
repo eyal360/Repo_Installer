@@ -24,7 +24,7 @@ def setup_env() -> list :
     repos_lst = []
     clone = True
     while clone:
-        REPO_URL = input(f"\n(Press ENTER to skip) Which repo to clone? (Ex.: https://github.com/eyal360/<APP_NAME>.git)")
+        REPO_URL = input(f"\nWhich repo to clone? (Ex.: https://github.com/eyal360/<APP_NAME>.git)\n(Press ENTER to skip)")
         INSTALLATION_FOLDER_PATH = os.path.join(os.path.join("c:/", REPO_URL.split('/')[-1].split('.')[0]))
         repos_lst.append(INSTALLATION_FOLDER_PATH)
 
@@ -36,8 +36,8 @@ def setup_env() -> list :
             run_startup = input(f"\nRun it on startup? (y/n)")
             if 'y' in run_startup:
                 # Create startup BAT file
-                print(f'[-] Creating BAT file to run {MAIN_FILE_PATH.split("/")[-1]} on startup...')
-                BAT_FILE_PATH = os.path.join(os.path.expanduser( '~' ), "AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup", f"startup_bot_{MAIN_FILE_PATH.split('/')[-1].split('.')[0]}.bat")
+                print(f'[-] Creating BAT file to run {MAIN_FILE_PATH} on startup...')
+                BAT_FILE_PATH = os.path.join(os.path.expanduser( '~' ), "AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup", f"startup_run_{REPO_URL.split('/')[-1].split('.')[0]}.bat")
                 file = open(BAT_FILE_PATH,'w+')
                 file.write('@echo off\n')
                 file.write(f'python {MAIN_FILE_PATH}')
