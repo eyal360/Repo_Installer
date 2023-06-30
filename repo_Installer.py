@@ -18,13 +18,14 @@ def current_time() -> str:
 
 def setup_env() -> list : 
     '''Setup the environment for the app to run'''
-    print(f'This is a repository installer, follow the next steps ...')
+    print(f'This is a repository installer / updater, follow the next steps ...')
     print('[#] Repositories will clone under "c:/" directory ...')
+    print('[#] If Repo exists, then that repo will be updated ...')
 
     repos_lst = []
     clone = True
     while clone:
-        REPO_URL = input(f"\nWhich repo to clone? (Ex.: https://github.com/eyal360/<APP_NAME>.git)\n(Press ENTER to skip)")
+        REPO_URL = input(f"\nWhich repo to Clone / Pull? (Ex.: https://github.com/eyal360/<APP_NAME>.git)\n(Press ENTER to skip)")
         INSTALLATION_FOLDER_PATH = os.path.join(os.path.join("c:/", REPO_URL.split('/')[-1].split('.')[0]))
         repos_lst.append(INSTALLATION_FOLDER_PATH)
 
@@ -44,7 +45,9 @@ def setup_env() -> list :
                 file.close()
         
         else:
-            print(f'[-] "{INSTALLATION_FOLDER_PATH}" already exists, skipping ...')
+            print(f'[-] "{INSTALLATION_FOLDER_PATH}" already exists, Pulling latest changes ...')
+            local_repo = git.Repo(path=os.path.join(INSTALLATION_FOLDER_PATH, ".git"))
+            local_repo.remotes.origin.pull()
 
         clone = True if 'y' in input(f"\nAnother repo to clone? (y/n)") else False        
     
@@ -54,4 +57,4 @@ if __name__ == '__main__':
     
     repos_lst = setup_env()
     for repo in repos_lst:
-        print(f'[#] "{repo}" Repository installed successfully!')
+        print(f'[#] "{repo}" Repository installed / Updated successfully!')
