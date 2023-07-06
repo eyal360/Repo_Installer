@@ -27,8 +27,8 @@ def setup_env() -> list :
     while clone:
         local_repos = [folder for folder in os.listdir('c:/') if os.path.isdir(os.path.join('c:/', folder, '.git'))]
         if local_repos != []:
-            print(f'\n[-] Found These Local Repositories: {local_repos}')
-        REPO_URL = input(f"\nWhich repo to Clone/Pull? (ENTER to skip) \n({local_repos}   OR   https://github.com/eyal360/<APP_NAME>.git) ")
+            print(f'\n[#] Found These Local Repositories: {local_repos}')
+        REPO_URL = input(f"\nWhich repo to Clone/Pull? (Press ENTER to skip) \n({local_repos}   OR   https://github.com/eyal360/<APP_NAME>.git)\n")
         # Checking if the user entered a local repo or a github repo
         REPO_URL = f'https://github.com/eyal360/{REPO_URL}.git' if 'https' not in REPO_URL else REPO_URL
         INSTALLATION_FOLDER_PATH = os.path.join(os.path.join("c:/", REPO_URL.split('/')[-1].split('.')[0]))
