@@ -62,10 +62,8 @@ if __name__ == '__main__':
     
     repos_lst = setup_env()
     
-    cnt = 1
-    for repo in repos_lst:
-        print('\nSummary:')
-        print(f'[{cnt}] "{repo}" Repository Updated successfully!')
-        cnt += 1
+    print('\nSummary:')
+    for idx, repo in enumerate(repos_lst):
+        print(f'[{idx+1}] "{repo}" Repository Updated successfully!')
 
     wait = input('\nPress ENTER to exit ...')
