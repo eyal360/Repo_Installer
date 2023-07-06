@@ -29,6 +29,8 @@ def setup_env() -> list :
         if local_repos != []:
             print(f'\n[-] Found These Local Repositories: {local_repos}')
         REPO_URL = input(f"\nWhich repo to Clone/Pull? (ENTER to skip) \n({local_repos}   OR   https://github.com/eyal360/<APP_NAME>.git) ")
+        # Checking if the user entered a local repo or a github repo
+        REPO_URL = f'https://github.com/eyal360/{REPO_URL}.git' if 'https' not in REPO_URL else REPO_URL
         INSTALLATION_FOLDER_PATH = os.path.join(os.path.join("c:/", REPO_URL.split('/')[-1].split('.')[0]))
         repos_lst.append(INSTALLATION_FOLDER_PATH)
 
