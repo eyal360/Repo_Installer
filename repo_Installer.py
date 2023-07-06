@@ -25,7 +25,10 @@ def setup_env() -> list :
     repos_lst = []
     clone = True
     while clone:
-        REPO_URL = input(f"\nWhich repo to Clone/Pull from? (Ex.: https://github.com/eyal360/<APP_NAME>.git)\n(Press ENTER to skip)")
+        local_repos = [folder for folder in os.listdir('c:/') if os.path.isdir(os.path.join('c:/', folder, '.git'))]
+        if local_repos != []:
+            print(f'\n[-] Found These Local Repositories: {local_repos}')
+        REPO_URL = input(f"\nWhich repo to Clone/Pull? (ENTER to skip) \n({local_repos}   OR   https://github.com/eyal360/<APP_NAME>.git) ")
         INSTALLATION_FOLDER_PATH = os.path.join(os.path.join("c:/", REPO_URL.split('/')[-1].split('.')[0]))
         repos_lst.append(INSTALLATION_FOLDER_PATH)
 
@@ -34,7 +37,7 @@ def setup_env() -> list :
             git.Git(working_dir=os.path.dirname(INSTALLATION_FOLDER_PATH)).clone(REPO_URL)
 
             MAIN_FILE_PATH = os.path.join(INSTALLATION_FOLDER_PATH,input(f"\nWhat is the name of the main file? {os.listdir(INSTALLATION_FOLDER_PATH)}"))
-            run_startup = input(f"\nRun it on startup? (y/n)")
+            run_startup = input(f'\nRun "{MAIN_FILE_PATH}" on startup? (y/n) ')
             if 'y' in run_startup:
                 # Create startup BAT file
                 print(f'[-] Creating BAT file to run {MAIN_FILE_PATH} on startup...')
@@ -45,18 +48,22 @@ def setup_env() -> list :
                 file.close()
         
         else:
-            print(f'[-] "{INSTALLATION_FOLDER_PATH}" already exists, Pulling latest changes ...')
+            print(f'[-] "{INSTALLATION_FOLDER_PATH}" Repo exists, Pulling latest changes ...')
             local_repo = git.Repo(path=os.path.join(INSTALLATION_FOLDER_PATH, ".git"))
             local_repo.remotes.origin.pull()
 
-        clone = True if 'y' in input(f"\nAnother repo to Clone/Pull from? (y/n)") else False        
+        clone = True if 'y' in input(f"\nAnother repo to Clone/Pull? (y/n) ") else False        
     
     return repos_lst
 
 if __name__ == '__main__':
     
     repos_lst = setup_env()
+    
+    cnt = 1
     for repo in repos_lst:
-        print(f'[#] "{repo}" Repository installed / Updated successfully!')
+        print('\nSummary:')
+        print(f'[{cnt}] "{repo}" Repository Updated successfully!')
+        cnt += 1
 
     wait = input('\nPress ENTER to exit ...')
